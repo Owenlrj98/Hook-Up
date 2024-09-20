@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 //components
 import Navibar from "../components/NaviBar";
 
-function HomePage() {
+function StartPage() {
   return (
     <>
       <div className="homepage">
@@ -21,4 +21,4 @@ function HomePage() {
   );
 }
 
-export default HomePage;
+export default StartPage;

@@ -2,6 +2,9 @@ const express = require('express');
 const multer = require('multer');
 const multerS3 = require('multer-s3');
 const AWS = require('aws-sdk');
+require("dotenv").config();
+
+// const { upload } = require('@aws-sdk/lib-storage');
 
 const router = express.Router();
 
@@ -17,7 +20,7 @@ const upload = multer({
     storage: multerS3({
         s3: s3,
         bucket: 'hookupimage',
-        acl: 'public-read',
+        // acl: 'public-read',
         key: (req, file, cb) => {
             cb(null, `profile_pictures/${Date.now()}_${file.originalname}`);
         }

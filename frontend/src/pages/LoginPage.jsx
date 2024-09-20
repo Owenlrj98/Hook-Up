@@ -23,7 +23,7 @@ function LoginPage({ setToken, setIsUserLoggedIn }) {
       setToken(token);
       setIsUserLoggedIn(true);
       setSuccessMessage("Login Successful");
-
+      localStorage.setItem('jwt token', token);
       navigate("/user");
     } catch (error) {
       console.log(error);
