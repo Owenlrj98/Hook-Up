@@ -1,15 +1,13 @@
 import { useState, useEffect } from "react";
 //services
-import { fetchRandomUser } from "../services/apiGetProfile";
+import { fetchRandomUser } from "../services/apiProfile";
 
-function HomePage({ token, setToken }) {
-  const [successMessage, setSuccess] = useState("");
-  const [errorMessage, setErrorMessage] = useState("");
+function HomePage({ token }) {
   const [user, setUser] = useState(null);
   const [error, setError] = useState("");
 
   useEffect(() => {
-    console.log("my token:", token)
+    console.log("my token:", token);
     const loadProfile = async () => {
       if (!token) {
         setError("No token");
@@ -18,7 +16,7 @@ function HomePage({ token, setToken }) {
       try {
         const profileData = await fetchRandomUser(token);
         console.log("Profile data:", profileData);
-        setUser(profileData);
+        setUser(profileData.profile);
       } catch (error) {
         setError("Failed to load profile.");
         console.error("Error fetching profile:", error);
@@ -35,7 +33,7 @@ function HomePage({ token, setToken }) {
     }
     try {
       const profileData = await fetchRandomUser(token);
-      setUser(profileData); // Update user state with new data
+      setUser(profileData.profile); // Update user state with new data
       setError(""); // Clear previous errors
     } catch (error) {
       setError("Failed to load random user.");

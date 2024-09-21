@@ -8,7 +8,7 @@ import StartPage from "./pages/StartPage";
 import SignUpPage from "./pages/SignUpPage";
 import LoginPage from "./pages/LoginPage";
 import HomePage from "./pages/HomePage";
-// import ProfilePage from "./pages/ProfilePage";
+import ProfilePage from "./pages/ProfilePage";
 import InvitationPage from "./pages/InvitationPage";
 import AppointmentsPage from "./pages/AppointmentsPage";
 
@@ -18,9 +18,11 @@ import UserNavBar from "./components/UserNavBar";
 import AdminNavBar from "./components/AdminNavBar";
 
 function App() {
-  const [token, setToken] = useState("");
+  const [token, setToken] = useState(localStorage.getItem('jwt token'));
   const [isUserLoggedIn, setIsUserLoggedIn] = useState(false);
   const [isAdminLoggedIn, setIsAdminLoggedIn] = useState(false);
+  const [profile, setProfile] = useState([]);
+
   return (
     <div className="homeContent">
       {isUserLoggedIn ? (
@@ -40,12 +42,23 @@ function App() {
           path="/user/signup"
           element={<SignUpPage setToken={setToken} />}
         />
-        <Route path="/user/login" element={<LoginPage setToken={setToken} setIsUserLoggedIn={setIsUserLoggedIn} />} />
-        <Route path="/user" element={<HomePage token={token} setToken={setToken} />} />
-        {/* <Route
+        <Route
+          path="/user/login"
+          element={
+            <LoginPage
+              setToken={setToken}
+              setIsUserLoggedIn={setIsUserLoggedIn}
+            />
+          }
+        />
+        <Route
+          path="/user"
+          element={<HomePage token={token} setToken={setToken} />}
+        />
+        <Route
           path="/user/profile"
-          element={<ProfilePage setToken={setToken} />}
-        /> */}
+          element={<ProfilePage token={token} setToken={setToken} profile={profile} setProfile={setProfile} />}
+        />
         <Route
           path="/user/invitation"
           element={<InvitationPage setToken={setToken} />}

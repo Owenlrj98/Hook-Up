@@ -8,7 +8,7 @@ const bodyParser = require('body-parser');
 //import routers
 const userRouter = require("./controllers/UsersController");
 const profilePicRouter = require("./controllers/ProfilePicController");
-const profileRouter = require("./controllers/InviteController");
+const profileRouter = require("./controllers/ProfileController");
 
 //connect to mongodb
 mongoose.connect(process.env.MONGODB_URI);
@@ -29,8 +29,8 @@ app.use(bodyParser.json());
 
 //Routes
 app.use('/api/user', userRouter);
-app.use('/api/profile', profilePicRouter);
-// app.use('/api/profile', profileRouter);
+app.use('/api/profilePic', profilePicRouter);
+app.use('/api/profile', profileRouter);
 
 app.listen(port, () => {
   console.log(`App running on port ${port}`);

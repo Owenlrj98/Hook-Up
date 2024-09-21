@@ -77,10 +77,10 @@ router.get('/', verifyToken, async (req, res) => {
 // get user profile by id
 router.get("/:userId", verifyToken, async (req, res) => {
     try {
-        if (req._id !== req.params.userId) {
+        if (req.user._id !== req.params.userId) {
             return res.status(401).json({ error: "Unauthorized to enter." })
         }
-        const userProfile = await User.findById(req._id);
+        const userProfile = await User.findById(req.user._id);
         if (!userProfile) {
             res.status(404);
             throw new Error("Profile Invalid, please try again.");
@@ -94,7 +94,6 @@ router.get("/:userId", verifyToken, async (req, res) => {
             }
         }
     });
-
 
 // update profile - name, experience and preferences only
 router.put('/:id', verifyToken, async (req, res) => {
