@@ -3,8 +3,8 @@ import { useNavigate } from "react-router-dom";
 //services
 import { fetchRandomUser } from "../services/apiProfile";
 
-function HomePage({ token }) {
-  const [user, setUser] = useState(null);
+function HomePage({ token, user, setUser }) {
+  // const [user, setUser] = useState("");
   const [error, setError] = useState("");
   const navigate = useNavigate();
 
@@ -18,7 +18,8 @@ function HomePage({ token }) {
       try {
         const profileData = await fetchRandomUser(token);
         console.log("Profile data:", profileData);
-        setUser(profileData.profile);
+        // setUser(profileData.profile);
+        setUser(profileData)
       } catch (error) {
         setError("Failed to load profile.");
         console.error("Error fetching profile:", error);
@@ -35,8 +36,11 @@ function HomePage({ token }) {
     }
     try {
       const profileData = await fetchRandomUser(token);
-      setUser(profileData.profile); // Update user state with new data
+      console.log(profileData);
+      setUser(profileData)
+      // setUser(profileData.profile); // Update user state with new data
       setError(""); // Clear previous errors
+      console.log("user data", user);
     } catch (error) {
       setError("Failed to load random user.");
       console.error("Error fetching random user:", error);
@@ -57,9 +61,9 @@ function HomePage({ token }) {
 
       {user ? (
         <div>
-          <h2>Name: {user.name}</h2>
-          <p>Experience: {user.experience}</p>
-          <p>Likes: {user.preferences}</p>
+          <h2>Name: {user.profile.name}</h2>
+          <p>Experience: {user.profile.experience}</p>
+          <p>Likes: {user.profile.preferences}</p>
           {/* Add more user fields as necessary */}
           <button onClick={handleFetchRandomUser}>Get Random User</button>
             <button onClick={handleHook}>Hook</button>

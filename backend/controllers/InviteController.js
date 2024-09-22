@@ -1,7 +1,8 @@
 const express = require('express');
-const Invite = require('../models/InviteSchema'); // Adjust the path as necessary
 const verifyToken = require('../middleware/verifyToken'); // Ensure you have token verification
 const router = express.Router();
+//models
+const Invite = require('../models/InviteSchema'); // Adjust the path as necessary
 
 // Middleware to get the current user
 const getUser = (req) => {
@@ -34,19 +35,31 @@ router.post("/:recipientId", verifyToken, async (req, res) => {
   }
 });
 
-//display invitation
-router.get("/invites", verifyToken, async (req, res) => {
-    const userId = getUser(req)._id;
-  
-    try {
-      const invites = await Invite.find({
-        $or: [{ sender: userId }, { recipient: userId }],
-      }).populate("sender recipient"); // Populate sender and recipient details
-  
-      res.status(200).json(invites);
-    } catch (error) {
-      console.error("Error fetching invitations:", error);
-      res.status(500).json({ error: "Internal server error" });
-    }
+//display all your pending invitations only
+router.get("/list", verifyToken, async (req, res) => {
+  const userId = getUser(req)._id;
+  try {
+    const pendingInvites = await Invite.find({
+      $or: [
+        { sender: userId, status: 'pending' },
+        { recipient: userId, status: 'pending' }
+      ]
+    })
+    .populate({
+      path: 'sender', 
+      select: 'profile.name',
+  }) //get sender -> profile -> name
+    .populate({
+      path: 'recipient',
+      select: 'profile.name',
+    }); //get recipient -> profile -> name
+
+    res.status(200).json(pendingInvites);
+      } catch (error) {
+        console.error("Error fetching pending invitations:", error);
+        res.status(500).json({ error: "Internal server error" });
+      }
   });
+
 module.exports = router;
+

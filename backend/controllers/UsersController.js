@@ -3,6 +3,8 @@ const router = express.Router();
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 const verifyToken = require("../middleware/verifyToken");
+
+//models
 const User = require("../models/UserSchema");
 
 const SALT_LENGTH = 12;
@@ -53,11 +55,11 @@ router.post("/login", async (req, res) => {
     }
 });
 
-// get all users in database not equals to the current id
+// get random user in database not equals to the current id
 router.get('/', verifyToken, async (req, res) => {
     try {
         // find all users accept your own
-      const users = await User.find({ _id: { $ne: req.user.id } });
+      const users = await User.find({ _id: { $ne: req.user._id } });
       // if no users
       if (users.length === 0) {
         return res.status(404).json({ message: 'No other users found' });

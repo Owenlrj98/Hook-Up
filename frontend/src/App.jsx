@@ -10,7 +10,7 @@ import LoginPage from "./pages/LoginPage";
 import HomePage from "./pages/HomePage";
 import ProfilePage from "./pages/ProfilePage";
 import InvitePage from "./pages/InvitePage";
-// import InvitationPage from "./pages/InvitePage";
+import InvitationsPage from "./pages/InvitationsPage";
 import AppointmentsPage from "./pages/AppointmentsPage";
 
 // components
@@ -23,6 +23,7 @@ function App() {
   const [isUserLoggedIn, setIsUserLoggedIn] = useState(false);
   const [isAdminLoggedIn, setIsAdminLoggedIn] = useState(false);
   const [profile, setProfile] = useState([]);
+  const [user, setUser] = useState("");
 
   return (
     <div className="homeContent">
@@ -54,7 +55,7 @@ function App() {
         />
         <Route
           path="/user"
-          element={<HomePage token={token} setToken={setToken} />}
+          element={<HomePage token={token} setToken={setToken} user={user} setUser={setUser} />}
         />
         <Route
           path="/user/profile"
@@ -62,7 +63,11 @@ function App() {
         />
         <Route
           path="/invite/:recipientId"
-          element={<InvitePage token = {token} setToken={setToken} />}
+          element={<InvitePage token={token} setToken={setToken} />}
+        />
+        <Route
+        path="/user/invitations"
+        element={<InvitationsPage token={token} />} 
         />
         <Route
           path="/user/appointments"
