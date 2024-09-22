@@ -1,7 +1,9 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Container, Form, Button, Dropdown } from "react-bootstrap";
+//components
 import ProfileCard from "../components/ProfileCard";
+//services
 import { createEditProfile } from "../services/apiProfile";
 
 const ProfilePage = ({ profile, setProfile, token }) => {

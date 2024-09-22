@@ -9,7 +9,8 @@ import SignUpPage from "./pages/SignUpPage";
 import LoginPage from "./pages/LoginPage";
 import HomePage from "./pages/HomePage";
 import ProfilePage from "./pages/ProfilePage";
-import InvitationPage from "./pages/InvitationPage";
+import InvitePage from "./pages/InvitePage";
+// import InvitationPage from "./pages/InvitePage";
 import AppointmentsPage from "./pages/AppointmentsPage";
 
 // components
@@ -60,8 +61,8 @@ function App() {
           element={<ProfilePage token={token} setToken={setToken} profile={profile} setProfile={setProfile} />}
         />
         <Route
-          path="/user/invitation"
-          element={<InvitationPage setToken={setToken} />}
+          path="/invite/:recipientId"
+          element={<InvitePage token = {token} setToken={setToken} />}
         />
         <Route
           path="/user/appointments"

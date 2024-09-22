@@ -1,10 +1,12 @@
 import { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 //services
 import { fetchRandomUser } from "../services/apiProfile";
 
 function HomePage({ token }) {
   const [user, setUser] = useState(null);
   const [error, setError] = useState("");
+  const navigate = useNavigate();
 
   useEffect(() => {
     console.log("my token:", token);
@@ -41,6 +43,13 @@ function HomePage({ token }) {
     }
   };
 
+  const handleHook = () => {
+    if (user) {
+      navigate(`/invite/${user._id}`); // Navigate to the invite form with the user ID
+    // user._id here is profile id 
+    }
+  };
+
   return (
     <div>
       <h1>Hook with someone!</h1>
@@ -53,7 +62,7 @@ function HomePage({ token }) {
           <p>Likes: {user.preferences}</p>
           {/* Add more user fields as necessary */}
           <button onClick={handleFetchRandomUser}>Get Random User</button>
-          <button>Hook</button>
+            <button onClick={handleHook}>Hook</button>
         </div>
       ) : (
         <p>No user data available.</p>
