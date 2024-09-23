@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { format, parseISO } from "date-fns";
 
 //services
 import { invitationListFrom } from "../services/apiInvite";
@@ -11,7 +12,6 @@ function PendingPage({ token }) {
   useEffect(() => {
     const loadInvitations = async () => {
       try {
-        // get all pending invitations
         const invitationData = await invitationListFrom(token);
         setInvitations(invitationData);
         console.log("Invitations Data:", invitationData);
@@ -27,7 +27,6 @@ function PendingPage({ token }) {
   console.log("invite", invitations);
 
   const handleAccept = async (invitationId) => {
-    //change invitation status from pending to accepted
     try {
       await updateInvitationStatus(token, invitationId, "Accepted");
       setInvitations(prevInvitations =>
@@ -37,10 +36,12 @@ function PendingPage({ token }) {
       setErrorMessage("Failed to accept invitation.");
       console.error("Error accepting invitation:", error);
     }
-  }
+  };
+
   if (!invitations) {
     return <div>You have no invitations yet</div>;
   }
+
   return (
     <div>
       {invitations.length === 0 ? (
@@ -49,12 +50,12 @@ function PendingPage({ token }) {
         invitations.map((invitation) => (
           <div key={invitation._id}>
             <h2>Invitation from: {invitation.sender.profile.name}</h2>
-            <p>Date: {invitation.date}</p>
+            <p>Date: {format(parseISO(invitation.date), 'dd MMMM yyyy')}</p>
             <p>Time: {invitation.time}</p>
             <p>Location: {invitation.location}</p>
             <p>Activity: {invitation.activity}</p>
             <p>Status: {invitation.status}</p>
-            <button onClick={handleAccept}>Sure!</button>
+            <button onClick={() => handleAccept(invitation._id)}>Sure!</button>
             <button>Nope!</button>
           </div>
         ))

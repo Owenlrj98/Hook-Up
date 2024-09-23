@@ -22,20 +22,21 @@ import AdminNavBar from "./components/AdminNavBar";
 
 function App() {
   const [token, setToken] = useState(localStorage.getItem('jwt token'));
-  const [isUserLoggedIn, setIsUserLoggedIn] = useState(false);
+  const [isUserLoggedIn, setIsUserLoggedIn] = useState(!!token); // use token to check if user is logged in, if token exist = user logged in
   const [isAdminLoggedIn, setIsAdminLoggedIn] = useState(false);
   const [profile, setProfile] = useState([]);
   const [user, setUser] = useState("");
 
+  const handleLogout = () => {
+    setIsUserLoggedIn(false);
+    setToken(null);
+    localStorage.removeItem('jwt token'); // Clear token from local storage
+  };
+
   return (
     <div className="homeContent">
       {isUserLoggedIn ? (
-        <UserNavBar setIsUserLoggedIn={setIsUserLoggedIn} setToken={setToken} />
-      ) : isAdminLoggedIn ? (
-        <AdminNavBar
-          setIsAdminLoggedIn={setIsAdminLoggedIn}
-          setToken={setToken}
-        />
+        <UserNavBar setIsUserLoggedIn={setIsUserLoggedIn} setToken={setToken} handleLogout={handleLogout} />
       ) : (
         <Navibar />
       )}
