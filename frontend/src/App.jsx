@@ -11,7 +11,9 @@ import HomePage from "./pages/HomePage";
 import ProfilePage from "./pages/ProfilePage";
 import InvitePage from "./pages/InvitePage";
 import InvitationsPage from "./pages/InvitationsPage";
+import PendingPage from "./pages/PendingPage";
 import AppointmentsPage from "./pages/AppointmentsPage";
+
 
 // components
 import Navibar from "./components/NaviBar";
@@ -68,6 +70,10 @@ function App() {
         <Route
         path="/user/invitations"
         element={<InvitationsPage token={token} />} 
+        />
+        <Route
+        path="/user/pending"
+        element={<PendingPage token={token} />}
         />
         <Route
           path="/user/appointments"

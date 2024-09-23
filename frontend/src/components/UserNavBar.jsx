@@ -12,6 +12,7 @@ function UserNavBar() {
           <Nav className="me-auto">
             <Nav.Link href="/user/profile">Profile</Nav.Link>
             <Nav.Link href="/user/invitations">Invitations</Nav.Link>
+            <Nav.Link href="/user/pending">Pending</Nav.Link>
             <Nav.Link href="/user/appointments">Appointments</Nav.Link>
           </Nav>
         </Container>

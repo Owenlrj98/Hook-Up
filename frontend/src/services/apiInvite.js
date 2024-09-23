@@ -23,8 +23,8 @@ export const createInvite = async (token, recipientId, inviteData) => {
     }
   };
 
-// Get all pending invites for user
-export const invitationList = async (token) => {
+// Get all pending invites from me to others
+export const invitationListTo = async (token) => {
   const url = `${BACKEND_URL}/api/invitation/list`;
   try {
     const response = await fetch(url, {
@@ -47,28 +47,50 @@ export const invitationList = async (token) => {
   }
 };
 
+//get all pending invites to me from others
+export const invitationListFrom = async (token) => {
+  const url = `${BACKEND_URL}/api/invitation/pending`;
+  try {
+    const response = await fetch(url, {
+      method: "GET",
+      headers: {
+        Authorization: `Bearer ${token}`,
+        "Content-Type": "application/json",
+      },
+    });
 
+    if (!response.ok) {
+      const errorData = await response.json();
+      throw new Error(errorData.error || "Failed to fetch");
+    }
 
+    return await response.json();
+  } catch (error) {
+    console.error("Error fetching pending invitations:", error);
+    throw error;
+  }
+};
 
-// //get profile by user id
-// export const getUserById = async (token, userId) => {
-//   const url = `{BACKEND_URL}/api/invitation/${userId}`;
-//   try {
-//     const response = await fetch(url, {
-//       method: "GET",
-//       headers: {
-//         "Content-Type": "application/json",
-//         Authorization: `Bearer ${token}`,
-//       },
-//     });
-//     if (!response.ok) {
-//       throw new Error(`Response status: ${response.status}`);
-//     }
+export const updateInvitationStatus = async (token, invitationId, status) => {
+  const url = `${BACKEND_URL}/api/invitation/${invitationId}`;
+  try {
+    const response = await fetch(url, {
+      method: "PATCH", // Assuming you're using PATCH to update
+      headers: {
+        Authorization: `Bearer ${token}`,
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ status }),
+    });
 
-//     const json = await response.json();
-//     return json;
-//   } catch (error) {
-//     console.log(error.message);
-//     throw error;
-//   }
-// }
+    if (!response.ok) {
+      const errorData = await response.json();
+      throw new Error(errorData.error || "Failed to update invitation");
+    }
+
+    return await response.json();
+  } catch (error) {
+    console.error("Error updating invitation status:", error);
+    throw error;
+  }
+};
