@@ -36,6 +36,10 @@ function InvitationsPage({ token }) {
       ) : (
         invitations.map((invitation) => (
           <div key={invitation._id}>
+            <img src={invitation.recipient.profile.picture}
+            alt={`${invitation.recipient.profile.name}'s profile`}
+            style={{ width: "100px", height: "100px", borderRadius: "75px" }}
+            /> 
             <h2>Invitation to: {invitation.recipient.profile.name}</h2>
             <p>Date: {format(parseISO(invitation.date), 'dd MMMM yyyy')}</p>
             <p>Time: {invitation.time}</p>

@@ -60,7 +60,14 @@ function HomePage({ token, user, setUser }) {
       {error && <p style={{ color: "red" }}>{error}</p>}
 
       {user ? (
-        <div>
+        <div key={user._id}>
+          {user.profile.picture && (
+            <img
+              src={user.profile.picture}
+              alt={`${user.profile.name}'s profile`}
+              style={{ width: "150px", height: "150px", borderRadius: "75px" }}
+            />
+          )}
           <h2>Name: {user.profile.name}</h2>
           <p>Experience: {user.profile.experience}</p>
           <p>Likes: {user.profile.preferences}</p>

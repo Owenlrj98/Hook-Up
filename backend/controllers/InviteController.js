@@ -45,11 +45,11 @@ router.get("/list", verifyToken, async (req, res) => {
     })
       .populate({
         path: "sender",
-        select: "profile.name",
+        select: "profile.name profile.picture",
       }) //get sender -> profile -> name
       .populate({
         path: "recipient",
-        select: "profile.name",
+        select: "profile.name profile.picture",
       }); //get recipient -> profile -> name
 
     res.status(200).json(pendingInvites);
@@ -69,12 +69,12 @@ router.get("/pending", verifyToken, async (req, res) => {
     })
       .populate({
         path: "sender",
-        select: "profile.name",
-      }) //get sender -> profile -> name
+        select: "profile.name profile.picture",
+      }) //get sender -> profile -> name -> pic
       .populate({
         path: "recipient",
-        select: "profile.name",
-      }); //get recipient -> profile -> name
+        select: "profile.name profile.picture",
+      }); //get recipient -> profile -> name -> pic
 
     res.status(200).json(pendingInvitesToMe);
   } catch (error) {

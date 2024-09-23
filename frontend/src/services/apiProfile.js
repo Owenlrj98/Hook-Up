@@ -61,9 +61,11 @@ export const createEditProfile = async (token, formData) => {
       method: "POST",
       headers: {
         Authorization: `Bearer ${token}`,
-        "Content-Type": "application/json",
+        // "Content-Type": "application/json",
       },
-      body: JSON.stringify(formData),
+      // body: JSON.stringify(formData),
+      body: formData,
+
     });
     return res.json();
   } catch (error) {
