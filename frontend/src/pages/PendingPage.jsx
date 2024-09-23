@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 
 //services
 import { invitationListFrom } from "../services/apiInvite";
+import { updateInvitationStatus } from "../services/apiInvite";
 
 function PendingPage({ token }) {
   const [errorMessage, setErrorMessage] = useState("");
@@ -23,12 +24,12 @@ function PendingPage({ token }) {
     loadInvitations();
   }, [token]);
 
-//   console.log("invite", invitations);
+  console.log("invite", invitations);
 
   const handleAccept = async (invitationId) => {
-    //change invitation status from pending to approve
+    //change invitation status from pending to accepted
     try {
-      await updateInvitationStatus(token, invitationId, "accepted");
+      await updateInvitationStatus(token, invitationId, "Accepted");
       setInvitations(prevInvitations =>
         prevInvitations.filter(invitation => invitation._id !== invitationId)
       );
@@ -53,7 +54,7 @@ function PendingPage({ token }) {
             <p>Location: {invitation.location}</p>
             <p>Activity: {invitation.activity}</p>
             <p>Status: {invitation.status}</p>
-            <button>Sure!</button>
+            <button onClick={handleAccept}>Sure!</button>
             <button>Nope!</button>
           </div>
         ))

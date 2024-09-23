@@ -16,7 +16,6 @@ router.post("/:recipientId", verifyToken, async (req, res) => {
   const { date, time, location, activity } = req.body;
   const { recipientId } = req.params;
   const sender = getUser(req)._id;
-  // console.log(recipientId);
   try {
     const newInvite = new Invite({
       sender,
@@ -41,8 +40,7 @@ router.get("/list", verifyToken, async (req, res) => {
   try {
     const pendingInvites = await Invite.find({
       $or: [
-        { sender: userId, status: "pending" },
-        // { recipient: userId, status: 'pending' }
+        { sender: userId, status: "Pending" },
       ],
     })
       .populate({
@@ -67,7 +65,7 @@ router.get("/pending", verifyToken, async (req, res) => {
 
   try {
     const pendingInvitesToMe = await Invite.find({
-      $or: [{ recipient: userId, status: "pending" }],
+      $or: [{ recipient: userId, status: "Pending" }],
     })
       .populate({
         path: "sender",
@@ -85,13 +83,13 @@ router.get("/pending", verifyToken, async (req, res) => {
   }
 });
 
-//update invitation status
+//edit invitation status
 router.put("/pending/:invitationId", verifyToken, async (req, res) => {
-  const invitationId = req.params.id;
+  const invitationId = req.params.invitationId;
   const { status } = req.body;
 
   // Validate status
-  if (!["accepted", "declined"].includes(status)) {
+  if (!["Accepted", "Declined"].includes(status)) {
     return res.status(400).json({ message: "Invalid status" });
   }
 
@@ -99,7 +97,7 @@ router.put("/pending/:invitationId", verifyToken, async (req, res) => {
     const invitation = await Invite.findByIdAndUpdate(
       invitationId,
       { status },
-      { new: Approved } // Return the updated document
+      { new: true } // Return the updated document
     );
 
     if (!invitation) {

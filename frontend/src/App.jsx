@@ -77,7 +77,7 @@ function App() {
         />
         <Route
           path="/user/appointments"
-          element={<AppointmentsPage setToken={setToken} />}
+          element={<AppointmentsPage token={token} />}
         />
       </Routes>
     </div>

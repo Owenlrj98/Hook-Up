@@ -1,4 +1,6 @@
 import { useEffect, useState } from "react";
+import { format, parseISO } from "date-fns";
+
 
 //services
 import { invitationListTo } from "../services/apiInvite";
@@ -35,7 +37,7 @@ function InvitationsPage({ token }) {
         invitations.map((invitation) => (
           <div key={invitation._id}>
             <h2>Invitation to: {invitation.recipient.profile.name}</h2>
-            <p>Date: {invitation.date}</p>
+            <p>Date: {format(parseISO(invitation.date), 'dd MMMM yyyy')}</p>
             <p>Time: {invitation.time}</p>
             <p>Location: {invitation.location}</p>
             <p>Activity: {invitation.activity}</p>

@@ -71,11 +71,12 @@ export const invitationListFrom = async (token) => {
   }
 };
 
+//change invitation status
 export const updateInvitationStatus = async (token, invitationId, status) => {
-  const url = `${BACKEND_URL}/api/invitation/${invitationId}`;
+  const url = `${BACKEND_URL}/api/invitation/pending/${invitationId}`;
   try {
     const response = await fetch(url, {
-      method: "PATCH", // Assuming you're using PATCH to update
+      method: "PUT", // Assuming you're using PATCH to update
       headers: {
         Authorization: `Bearer ${token}`,
         "Content-Type": "application/json",

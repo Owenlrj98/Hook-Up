@@ -19,7 +19,7 @@ function HomePage({ token, user, setUser }) {
         const profileData = await fetchRandomUser(token);
         console.log("Profile data:", profileData);
         // setUser(profileData.profile);
-        setUser(profileData)
+        setUser(profileData);
       } catch (error) {
         setError("Failed to load profile.");
         console.error("Error fetching profile:", error);
@@ -37,7 +37,7 @@ function HomePage({ token, user, setUser }) {
     try {
       const profileData = await fetchRandomUser(token);
       console.log(profileData);
-      setUser(profileData)
+      setUser(profileData);
       // setUser(profileData.profile); // Update user state with new data
       setError(""); // Clear previous errors
       console.log("user data", user);
@@ -50,7 +50,7 @@ function HomePage({ token, user, setUser }) {
   const handleHook = () => {
     if (user) {
       navigate(`/invite/${user._id}`); // Navigate to the invite form with the user ID
-    // user._id here is profile id 
+      // user._id here is profile id
     }
   };
 
@@ -64,9 +64,8 @@ function HomePage({ token, user, setUser }) {
           <h2>Name: {user.profile.name}</h2>
           <p>Experience: {user.profile.experience}</p>
           <p>Likes: {user.profile.preferences}</p>
-          {/* Add more user fields as necessary */}
           <button onClick={handleFetchRandomUser}>Get Random User</button>
-            <button onClick={handleHook}>Hook</button>
+          <button onClick={handleHook}>Hook</button>
         </div>
       ) : (
         <p>No user data available.</p>

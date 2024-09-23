@@ -10,6 +10,7 @@ const userRouter = require("./controllers/UsersController");
 const profilePicRouter = require("./controllers/ProfilePicController");
 const profileRouter = require("./controllers/ProfileController");
 const inviteRouter = require("./controllers/InviteController");
+const appointmentRouter = require("./controllers/AppointmentController");
 
 //connect to mongodb
 mongoose.connect(process.env.MONGODB_URI);
@@ -33,6 +34,7 @@ app.use('/api/user', userRouter);
 app.use('/api/profilePic', profilePicRouter);
 app.use('/api/profile', profileRouter);
 app.use('/api/invitation', inviteRouter);
+app.use('/api/appointment', appointmentRouter);
 
 app.listen(port, () => {
   console.log(`App running on port ${port}`);
