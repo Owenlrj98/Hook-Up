@@ -39,9 +39,7 @@ router.get("/list", verifyToken, async (req, res) => {
   const userId = getUser(req)._id;
   try {
     const pendingInvites = await Invite.find({
-      $or: [
-        { sender: userId, status: "Pending" },
-      ],
+      $or: [{ sender: userId, status: "Pending" }],
     })
       .populate({
         path: "sender",
@@ -83,7 +81,7 @@ router.get("/pending", verifyToken, async (req, res) => {
   }
 });
 
-//edit invitation status
+//edit invitation status when accept
 router.put("/pending/:invitationId", verifyToken, async (req, res) => {
   const invitationId = req.params.invitationId;
   const { status } = req.body;
@@ -97,7 +95,7 @@ router.put("/pending/:invitationId", verifyToken, async (req, res) => {
     const invitation = await Invite.findByIdAndUpdate(
       invitationId,
       { status },
-      { new: true } // Return the updated document
+      { new: true }, // Return the updated document
     );
 
     if (!invitation) {
@@ -107,6 +105,22 @@ router.put("/pending/:invitationId", verifyToken, async (req, res) => {
     res.json(invitation);
   } catch (err) {
     console.error(err);
+    res.status(500).json({ error: "Internal server error" });
+  }
+});
+
+// delete invitation when decline
+router.delete("/pending/:invitationId", verifyToken, async (req, res) => {
+  const invitationId = req.params.invitationId;
+  try {
+    const deleteInvitation = await Invite.findByIdAndDelete(invitationId);
+    if (!deleteInvitation) {
+      return res.status(404).json({ error: "Invitation not found" });
+    }
+
+    res.status(200).json({ message: "Invitation deleted successfully" });
+  } catch (error) {
+    console.error("Error deleting invitation:", error);
     res.status(500).json({ error: "Internal server error" });
   }
 });

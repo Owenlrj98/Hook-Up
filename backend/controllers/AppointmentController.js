@@ -12,8 +12,11 @@ router.get("/", verifyToken, async (req, res) => {
     const userId = getUser(req)._id;
     try {
       const acceptedInvites = await Invite.find({
+        // status = accepted & userid = sender OR recipient
+        status: "Accepted",
         $or: [
-          { sender: userId, status: "Accepted" },
+          { sender: userId },
+          { recipient: userId }
         ],
       })
         .populate({

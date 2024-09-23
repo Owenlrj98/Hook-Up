@@ -4,8 +4,10 @@ import { format, parseISO } from "date-fns";
 //services
 import { invitationListFrom } from "../services/apiInvite";
 import { updateInvitationStatus } from "../services/apiInvite";
+import { deleteInvitation } from "../services/apiInvite";
 
 function PendingPage({ token }) {
+  const [successMessage, setSuccess] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
   const [invitations, setInvitations] = useState([]);
 
@@ -29,12 +31,25 @@ function PendingPage({ token }) {
   const handleAccept = async (invitationId) => {
     try {
       await updateInvitationStatus(token, invitationId, "Accepted");
-      setInvitations(prevInvitations =>
-        prevInvitations.filter(invitation => invitation._id !== invitationId)
-      );
+      setInvitations((prevInvitations) =>
+        prevInvitations.filter((invitation) => invitation._id !== invitationId),
+      ); //filter to remove from list baby
+      setSuccess("You accepted the invitation!");
     } catch (error) {
       setErrorMessage("Failed to accept invitation.");
       console.error("Error accepting invitation:", error);
+    }
+  };
+
+  const handleDecline = async (invitationId) => {
+    try {
+      await deleteInvitation(token, invitationId);
+      setInvitations((prevInvitations) =>
+        prevInvitations.filter((invitation) => invitation._id !== invitationId),
+      ); //filter to remove from list baby
+      setSuccess("You declined the invitation!");
+    } catch (error) {
+      console.error("Failed to delete invitation:", error.message);
     }
   };
 
@@ -49,18 +64,19 @@ function PendingPage({ token }) {
       ) : (
         invitations.map((invitation) => (
           <div key={invitation._id}>
-            <img src={invitation.sender.profile.picture}
-            alt={`${invitation.sender.profile.name}'s profile`}
-            style={{ width: "100px", height: "100px", borderRadius: "75px" }}
-            /> 
+            <img
+              src={invitation.sender.profile.picture}
+              alt={`${invitation.sender.profile.name}'s profile`}
+              style={{ width: "100px", height: "100px", borderRadius: "75px" }}
+            />
             <h2>Invitation from: {invitation.sender.profile.name}</h2>
-            <p>Date: {format(parseISO(invitation.date), 'dd MMMM yyyy')}</p>
+            <p>Date: {format(parseISO(invitation.date), "dd MMMM yyyy")}</p>
             <p>Time: {invitation.time}</p>
             <p>Location: {invitation.location}</p>
             <p>Activity: {invitation.activity}</p>
             <p>Status: {invitation.status}</p>
             <button onClick={() => handleAccept(invitation._id)}>Sure!</button>
-            <button>Nope!</button>
+            <button onClick={() => handleDecline(invitation._id)}>Nope!</button>
           </div>
         ))
       )}

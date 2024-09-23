@@ -7,7 +7,6 @@ const bodyParser = require('body-parser');
 
 //import routers
 const userRouter = require("./controllers/UsersController");
-// const profilePicRouter = require("./controllers/ProfilePicController");
 const profileRouter = require("./controllers/ProfileController");
 const inviteRouter = require("./controllers/InviteController");
 const appointmentRouter = require("./controllers/AppointmentController");
@@ -31,7 +30,6 @@ app.use(bodyParser.json());
 
 //Routes
 app.use('/api/user', userRouter);
-// app.use('/api/profilepic', profilePicRouter);
 app.use('/api/profile', profileRouter);
 app.use('/api/invitation', inviteRouter);
 app.use('/api/appointment', appointmentRouter);
