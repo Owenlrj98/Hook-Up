@@ -3,9 +3,9 @@ import { Link, useNavigate } from "react-router-dom";
 import { useState } from "react";
 
 //api
-import { userLogin } from "../services/apiUsers";
+import { adminLogin } from "../services/apiAdmin";
 
-function LoginPage({ setToken, setIsUserLoggedIn }) {
+function AdminLoginPage({ setAdminToken, setIsAdminLoggedIn }) {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [successMessage, setSuccessMessage] = useState("");
@@ -18,13 +18,12 @@ function LoginPage({ setToken, setIsUserLoggedIn }) {
     setSuccessMessage("");
 
     try {
-      const token = await userLogin({ username, password });
-      console.log(token);
-      setToken(token);
-      setIsUserLoggedIn(true);
+      const adminToken = await adminLogin({ username, password });
+      setAdminToken(adminToken);
+      setIsAdminLoggedIn(true);
       setSuccessMessage("Login Successful");
-      localStorage.setItem('jwt token', token); //store token in localstorage upon log in
-      navigate("/user");
+      localStorage.setItem('ajwt token', adminToken); //store token in localstorage upon log in
+      navigate("/admin");
     } catch (error) {
       console.log(error);
       setError("Invalid Username or Password");
@@ -64,15 +63,9 @@ function LoginPage({ setToken, setIsUserLoggedIn }) {
           {error && <p className="error mt-3">{error}</p>}
           {successMessage && <p className="success mt-3">{successMessage}</p>}
         </Form>
-
-        <div className="button-container mt-2">
-          <Link to="/user/signup">
-            <Button className="custom-button-primary me-2">Sign Up</Button>
-          </Link>
-        </div>
       </Container>
     </div>
   );
 }
 
-export default LoginPage;
+export default AdminLoginPage;

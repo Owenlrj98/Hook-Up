@@ -1,5 +1,9 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+
+//styling
+// import Button from 'react-bootstrap/Button';
+
 //services
 import { fetchRandomUser } from "../services/apiProfile";
 

@@ -18,7 +18,7 @@ const createJWT = (user) => {
   
 // Sign up
 router.post("/signup", async (req, res) => {
-    const { username, password, email, name, experience, preferences } = req.body;
+    const { username, password, email, name, experience, preferences, isAdmin } = req.body;
     try {
         const userInDatabase = await User.findOne({username});
         if (userInDatabase) {
@@ -26,7 +26,7 @@ router.post("/signup", async (req, res) => {
         }
 
         const hashedPassword = await bcrypt.hash(password, SALT_LENGTH);
-        const newUser = await User.create({ username, password: hashedPassword, email, name, experience, preferences });
+        const newUser = await User.create({ username, password: hashedPassword, email, name, experience, preferences, isAdmin });
         const token = createJWT(newUser);
         res.status(201).json({newUser, token});
     } catch (error) {
