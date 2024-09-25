@@ -14,6 +14,7 @@ function UserNavBar({ handleLogout }) {
             <Nav.Link href="/user/invitations">Invitations</Nav.Link>
             <Nav.Link href="/user/pending">Pending</Nav.Link>
             <Nav.Link href="/user/appointments">Appointments</Nav.Link>
+            <Nav.Link href="/user/gyms">Gyms</Nav.Link>
             <Nav.Link href="/" onClick={handleLogout}>Log Out</Nav.Link>
           </Nav>
         </Container>

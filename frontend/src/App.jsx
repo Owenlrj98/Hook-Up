@@ -13,6 +13,7 @@ import InvitePage from "./pages/InvitePage";
 import InvitationsPage from "./pages/InvitationsPage";
 import PendingPage from "./pages/PendingPage";
 import AppointmentsPage from "./pages/AppointmentsPage";
+import GymsPage from "./pages/GymsPage";
 
 // Admin pages
 import AdminLoginPage from "./pages/AdminLoginPage";
@@ -158,6 +159,12 @@ function App() {
           path="/user/appointments"
           element={
             <UserProtectedRoute element={<AppointmentsPage token={token} />} />
+          }
+        />
+        <Route
+          path="/user/gyms"
+          element={
+            <UserProtectedRoute element={<GymsPage token={token} />} />
           }
         />
         <Route
