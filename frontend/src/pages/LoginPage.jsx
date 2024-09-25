@@ -35,7 +35,7 @@ function LoginPage({ setToken, setIsUserLoggedIn }) {
     <div className="user-bg">
       <Container className="login-container">
         <h3 className="h3-custom ">Login</h3>
-        <Form onSubmit={handleLogin} className="formLabel mt-4">
+        <Form onSubmit={handleLogin} className="mt-4">
           <Form.Group controlId="formUsername">
             <Form.Label>Username</Form.Label>
             <Form.Control
@@ -67,7 +67,7 @@ function LoginPage({ setToken, setIsUserLoggedIn }) {
 
         <div className="button-container mt-2">
           <Link to="/user/signup">
-            <Button className="custom-button-primary me-2">Sign Up</Button>
+            <Button className="custom-button-secondary me-2">Sign Up</Button>
           </Link>
         </div>
       </Container>

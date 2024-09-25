@@ -2,6 +2,9 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import { Route, Routes } from "react-router-dom";
 import { useState, useEffect } from "react";
 import { Navigate } from "react-router-dom";
+//styles
+import "./css/styles.css";
+import logo from "/images/hookuplogoz.png";
 
 // pages
 import StartPage from "./pages/StartPage";

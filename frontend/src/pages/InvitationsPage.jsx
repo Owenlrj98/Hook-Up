@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { format, parseISO } from "date-fns";
-
+//style
+import { Container } from "react-bootstrap";
 
 //services
 import { invitationListTo } from "../services/apiInvite";
@@ -31,6 +32,7 @@ function InvitationsPage({ token }) {
   }
   return (
     <div>
+      <Container className="text-center">
       {invitations.length === 0 ? (
         <p>No invitations</p>
       ) : (
@@ -49,6 +51,7 @@ function InvitationsPage({ token }) {
           </div>
         ))
       )}
+      </Container>
     </div>
   );
 }
