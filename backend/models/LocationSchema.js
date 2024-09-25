@@ -5,9 +5,10 @@ const LocationSchema = new mongoose.Schema({
   name: { type: String, required: true, unique: true },
   address: { type: String, required: true, unique: true },
   postal: { type: String, required: true, unique: true },
-  facilities: { type: [String],
-  enum: ["Bouldering Wall", "Top Rope Wall", "Lead Climbing Wall", "System Board"],
-},
+  facilities: {
+    type: [String], // Array of strings to hold multiple facilities
+    required: true,
+  },
 });
 
 LocationSchema.set("toJSON", {

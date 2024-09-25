@@ -81,19 +81,20 @@ router.post("/login", async (req, res) => {
 
 // admin create new location
 router.post("/location", verifyAdminToken, upload.single('locationPicture'), async (req, res) => {
-    const { name, address, postal } = req.body;
+    const { name, address, postal, facilities } = req.body;
     if (!name || !address || !postal) {
         return res.status(400).json({ error: "All fields are required" });
     }
     try {
-        const picture = req.file ? req.file.location : null; // Use req.file.location for S3
-        console.log("Uploaded picture URL:", picture);
+        const picture = req.file ? req.file.location : null; // Use req.file.location for S3 fk this
+        // console.log("Uploaded picture URL:", picture);
 
         const newLocation = new Location({
             picture,
             name,
             address,
             postal,
+            facilities,
         });
         console.log("Picture path:", picture);
 

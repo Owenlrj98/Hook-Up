@@ -12,9 +12,9 @@ function AdminNavBar({ handleAdminLogout }) {
           <Nav className="me-auto">
             <Nav.Link href="/admin/locations">Locations</Nav.Link>
             <Nav.Link href="/admin/locations/create">New Location</Nav.Link>
-            <Nav.Link href="/admin/list">All Users</Nav.Link>
+            {/* <Nav.Link href="/admin/list">All Users</Nav.Link>
             <Nav.Link href="/admin/search">Search</Nav.Link>
-            <Nav.Link href="/admin/banlist">Banned Users</Nav.Link>
+            <Nav.Link href="/admin/banlist">Banned Users</Nav.Link> */}
             <Nav.Link href="/" onClick={handleAdminLogout}>Log Out</Nav.Link>
           </Nav>
         </Container>
