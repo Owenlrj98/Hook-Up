@@ -4,6 +4,29 @@ const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 const verifyAdminToken = require("../middleware/verifyAdminToken");
 
+//aws
+const multer = require('multer');
+const multerS3 = require('multer-s3');
+const AWS = require('aws-sdk');
+// Initialize S3
+const s3 = new AWS.S3({
+    accessKeyId: process.env.AWS_ACCESS_KEY_ID,
+    secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY,
+    region: process.env.AWS_REGION,
+});
+
+// Multer-S3 setup
+const upload = multer({
+    storage: multerS3({
+        s3: s3,
+        bucket: 'hookupimage',
+        // acl: 'public-read',
+        key: (req, file, cb) => {
+            cb(null, `gym_pictures/${Date.now()}_${file.originalname}`);
+        }
+    })
+});
+
 //models
 const Admin = require("../models/AdminSchema");
 const Location = require('../models/LocationSchema');
@@ -57,17 +80,23 @@ router.post("/login", async (req, res) => {
 });
 
 // admin create new location
-router.post("/location", verifyAdminToken, async (req, res) => {
+router.post("/location", verifyAdminToken, upload.single('locationPicture'), async (req, res) => {
     const { name, address, postal } = req.body;
     if (!name || !address || !postal) {
         return res.status(400).json({ error: "All fields are required" });
     }
     try {
+        const picture = req.file ? req.file.location : null; // Use req.file.location for S3
+        console.log("Uploaded picture URL:", picture);
+
         const newLocation = new Location({
+            picture,
             name,
             address,
             postal,
         });
+        console.log("Picture path:", picture);
+
         await newLocation.save();
         res.status(201).json(newLocation);
     } catch (error) {
@@ -76,7 +105,7 @@ router.post("/location", verifyAdminToken, async (req, res) => {
     }
 });
 
-//get list of locations
+// get list of locations
 router.get("/location", verifyAdminToken, async (req, res) => {
     try {
         const locations = await Location.find();
@@ -87,4 +116,7 @@ router.get("/location", verifyAdminToken, async (req, res) => {
     }
 });
 
+
 module.exports = router;
+
+

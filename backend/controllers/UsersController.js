@@ -98,36 +98,36 @@ router.get("/:userId", verifyToken, async (req, res) => {
     });
 
 // update profile - name, experience and preferences only
-router.put('/:id', verifyToken, async (req, res) => {
-    // Extract user data from request body
-    const { username, experience, preferences } = req.body;
+// router.put('/:id', verifyToken, async (req, res) => {
+//     // Extract user data from request body
+//     const { username, experience, preferences } = req.body;
 
-    // Validate user ID
-    if (req.params.id !== req.user._id.toString()) {
-        return res.status(403).json({ error: 'Unauthorized to update this profile' });
-    }
+//     // Validate user ID
+//     if (req.params.id !== req.user._id.toString()) {
+//         return res.status(403).json({ error: 'Unauthorized to update this profile' });
+//     }
 
-    try {
-        // Find and update the user
-        const updatedUser = await User.findByIdAndUpdate(
-            req.params.id, 
-            { username, experience, preferences },
-            { new: true, runValidators: true }
-        );
+//     try {
+//         // Find and update the user
+//         const updatedUser = await User.findByIdAndUpdate(
+//             req.params.id, 
+//             { username, experience, preferences },
+//             { new: true, runValidators: true }
+//         );
 
-        // Check if the user was found and updated
-        if (!updatedUser) {
-            return res.status(404).json({ error: 'User not found' });
-        }
+//         // Check if the user was found and updated
+//         if (!updatedUser) {
+//             return res.status(404).json({ error: 'User not found' });
+//         }
 
-        // Send updated user as response
-        res.json(updatedUser);
-    } catch (err) {
-        // Log error for debugging purposes
-        console.error('Update profile error:', err);
-        res.status(500).json({ error: err.message });
-    }
-});
+//         // Send updated user as response
+//         res.json(updatedUser);
+//     } catch (err) {
+//         // Log error for debugging purposes
+//         console.error('Update profile error:', err);
+//         res.status(500).json({ error: err.message });
+//     }
+// });
 
 module.exports = router;
 

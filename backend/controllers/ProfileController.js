@@ -75,48 +75,48 @@ router.post("/:userId/details", verifyToken, upload.single('profilePicture'), as
 });
 
 //edit profile
-router.put("/:userId/details/edit", verifyToken, async (req, res) => {
-    const { userId } = req.params;
-    const currentUser = getUser(req);
+// router.put("/:userId/details/edit", verifyToken, async (req, res) => {
+//     const { userId } = req.params;
+//     const currentUser = getUser(req);
 
-    try {
-        // Ensure the current user matches the userId in the params
-        if (currentUser._id.toString() !== userId) {
-            return res.status(403).json({ error: "Unauthorized access" });
-        }
+//     try {
+//         // Ensure the current user matches the userId in the params
+//         if (currentUser._id.toString() !== userId) {
+//             return res.status(403).json({ error: "Unauthorized access" });
+//         }
 
-        // Destructure the profile fields from the request body
-        const { picture, name, experience, preferences } = req.body;
+//         // Destructure the profile fields from the request body
+//         const { picture, name, experience, preferences } = req.body;
 
-        // Validate required fields
-        if (!name || !experience || !preferences) {
-            return res.status(400).json({ error: 'Name, experience, and preferences are required.' });
-        }
+//         // Validate required fields
+//         if (!name || !experience || !preferences) {
+//             return res.status(400).json({ error: 'Name, experience, and preferences are required.' });
+//         }
 
-        // Update the user profile using findByIdAndUpdate
-        const updatedUser = await User.findByIdAndUpdate(
-            userId,
-            {
-                profile: {
-                    picture,
-                    name,
-                    experience,
-                    preferences,
-                }
-            },
-            { new: true, runValidators: true } // new: return the updated document, runValidators: ensure validation
-        );
+//         // Update the user profile using findByIdAndUpdate
+//         const updatedUser = await User.findByIdAndUpdate(
+//             userId,
+//             {
+//                 profile: {
+//                     picture,
+//                     name,
+//                     experience,
+//                     preferences,
+//                 }
+//             },
+//             { new: true, runValidators: true } // new: return the updated document, runValidators: ensure validation
+//         );
 
-        if (!updatedUser) {
-            return res.status(404).json({ error: "User not found" });
-        }
+//         if (!updatedUser) {
+//             return res.status(404).json({ error: "User not found" });
+//         }
 
-        // Respond with the updated profile details
-        res.status(200).json(updatedUser.profile);
-    } catch (error) {
-        console.error("Error adding/updating profile details:", error);
-        res.status(500).json({ error: "Internal server error" });
-    }
-});
+//         // Respond with the updated profile details
+//         res.status(200).json(updatedUser.profile);
+//     } catch (error) {
+//         console.error("Error adding/updating profile details:", error);
+//         res.status(500).json({ error: "Internal server error" });
+//     }
+// });
 
 module.exports = router;

@@ -16,7 +16,7 @@ export async function adminLogin(data) {
     }
 
     const json = await response.json();
-    return json.token;
+    return json.adminToken;
   } catch (error) {
     console.log(error.message);
     throw error;
@@ -42,7 +42,7 @@ export const createLocation = async (adminToken, formData) => {
   }
 };
 
-//Get all locations
+// Get all locations
 export async function locationsList(adminToken) {
   const url = `${BACKEND_URL}/api/admin/location`;
   try {
@@ -59,9 +59,12 @@ export async function locationsList(adminToken) {
       throw new Error(errorData.error || "Failed to fetch");
     }
 
-    return await response.json();
+    const json = await response.json();
+    console.log(json);
+    return json;
   } catch (error) {
     console.error("Error fetching locations:", error);
     throw error;
   }
 }
+

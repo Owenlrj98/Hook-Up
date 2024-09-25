@@ -10,7 +10,8 @@ function AdminNavBar({ handleAdminLogout }) {
         <Container>
           <Navbar.Brand href="/admin">Home</Navbar.Brand>
           <Nav className="me-auto">
-            <Nav.Link href="/admin/location">Locations</Nav.Link>
+            <Nav.Link href="/admin/locations">Locations</Nav.Link>
+            <Nav.Link href="/admin/locations/create">New Location</Nav.Link>
             <Nav.Link href="/admin/list">All Users</Nav.Link>
             <Nav.Link href="/admin/search">Search</Nav.Link>
             <Nav.Link href="/admin/banlist">Banned Users</Nav.Link>
