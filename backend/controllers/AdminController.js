@@ -6,6 +6,7 @@ const verifyAdminToken = require("../middleware/verifyAdminToken");
 
 //models
 const Admin = require("../models/AdminSchema");
+const Location = require('../models/LocationSchema');
 
 const SALT_LENGTH = 12;
 
@@ -52,6 +53,37 @@ router.post("/login", async (req, res) => {
         res.status(401).json({ error: "Invalid Username & Password"});
     } catch (error) {
         res.status(500).json({ error: error.message });
+    }
+});
+
+// admin create new location
+router.post("/location", verifyAdminToken, async (req, res) => {
+    const { name, address, postal } = req.body;
+    if (!name || !address || !postal) {
+        return res.status(400).json({ error: "All fields are required" });
+    }
+    try {
+        const newLocation = new Location({
+            name,
+            address,
+            postal,
+        });
+        await newLocation.save();
+        res.status(201).json(newLocation);
+    } catch (error) {
+        console.error("Error creating invitation:", error);
+        res.status(500).json({ error: "Internal server error" });
+    }
+});
+
+//get list of locations
+router.get("/location", verifyAdminToken, async (req, res) => {
+    try {
+        const locations = await Location.find();
+        res.status(200).json(locations);
+    } catch (error) {
+        console.error("Error fetching locations:", error);
+        res.status(500).json({ error: "Internal server error" });
     }
 });
 

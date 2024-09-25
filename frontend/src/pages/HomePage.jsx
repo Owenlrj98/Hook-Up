@@ -12,26 +12,53 @@ function HomePage({ token, user, setUser }) {
   const [error, setError] = useState("");
   const navigate = useNavigate();
 
-  useEffect(() => {
-    console.log("my token:", token);
-    const loadProfile = async () => {
-      if (!token) {
-        setError("No token");
-        return;
-      }
-      try {
-        const profileData = await fetchRandomUser(token);
-        console.log("Profile data:", profileData);
-        // setUser(profileData.profile);
-        setUser(profileData);
-      } catch (error) {
-        setError("Failed to load profile.");
-        console.error("Error fetching profile:", error);
-      }
-    };
+  // useEffect(() => {
+  //   console.log("my token:", token);
+  //   const loadProfile = async () => {
+  //     if (!token) {
+  //       setError("No token");
+  //       return;
+  //     }
+  //     try {
+  //       const profileData = await fetchRandomUser(token);
+  //       console.log("Profile data:", profileData);
+  //       // setUser(profileData.profile);
+  //       if (JSON.stringify(profileData) !== JSON.stringify(user)) {
 
-    loadProfile();
-  }, [token]);
+  //       setUser(profileData);
+  //       }
+  //     } catch (error) {
+  //       setError("Failed to load profile.");
+  //       console.error("Error fetching profile:", error);
+  //     }
+  //   };
+
+  //   loadProfile();
+  // }, []);
+
+  // useEffect(() => {
+  //   console.log("my token:", token);
+  //   const loadProfile = async () => {
+  //     if (!token) {
+  //       setError("No token");
+  //       return;
+  //     }
+  //     try {
+  //       const profileData = await fetchRandomUser(token);
+  //       console.log("Profile data:", profileData);
+  //       // setUser(profileData.profile);
+  //       if (JSON.stringify(profileData) !== JSON.stringify(user)) {
+
+  //       setUser(profileData);
+  //       }
+  //     } catch (error) {
+  //       setError("Failed to load profile.");
+  //       console.error("Error fetching profile:", error);
+  //     }
+  //   };
+
+  //   loadProfile();
+  // }, []);
 
   const handleFetchRandomUser = async () => {
     if (!token) {
@@ -40,7 +67,7 @@ function HomePage({ token, user, setUser }) {
     }
     try {
       const profileData = await fetchRandomUser(token);
-      console.log(profileData);
+      console.log("profiledata:", profileData);
       setUser(profileData);
       // setUser(profileData.profile); // Update user state with new data
       setError(""); // Clear previous errors
@@ -60,7 +87,7 @@ function HomePage({ token, user, setUser }) {
 
   return (
     <div>
-      <h1>Hook with someone!</h1>
+      <h1>Hook up with someone!</h1>
       {error && <p style={{ color: "red" }}>{error}</p>}
 
       {user ? (
@@ -75,11 +102,14 @@ function HomePage({ token, user, setUser }) {
           <h2>Name: {user.profile.name}</h2>
           <p>Experience: {user.profile.experience}</p>
           <p>Likes: {user.profile.preferences}</p>
-          <button onClick={handleFetchRandomUser}>Get Random User</button>
-          <button onClick={handleHook}>Hook</button>
+          <button onClick={handleFetchRandomUser}>Find Another</button>
+          <button onClick={handleHook}>Hook Up</button>
         </div>
       ) : (
-        <p>No user data available.</p>
+        <div>
+        <p>Who will you find?</p>
+        <button onClick={handleFetchRandomUser}>Find Someone</button>
+        </div>
       )}
     </div>
   );

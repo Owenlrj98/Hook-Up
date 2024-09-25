@@ -1,9 +1,8 @@
 const mongoose = require('mongoose');
 
 const LocationSchema = new mongoose.Schema({
-    name: { type: [String],
-    enum: ['Boruda', 'Boulder+', 'Climb Central', 'Fit Bloc', 'Lighthouse Climbing', 'Kinetics', 'Ground Up'],
-    },
+    picture: { type: String },
+    name: { type: String },
     address: { type: String },
     postal: {type: String},
 });  

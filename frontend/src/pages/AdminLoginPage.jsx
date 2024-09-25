@@ -19,6 +19,7 @@ function AdminLoginPage({ setAdminToken, setIsAdminLoggedIn }) {
 
     try {
       const adminToken = await adminLogin({ username, password });
+      console.log(adminToken);
       setAdminToken(adminToken);
       setIsAdminLoggedIn(true);
       setSuccessMessage("Login Successful");
@@ -33,7 +34,7 @@ function AdminLoginPage({ setAdminToken, setIsAdminLoggedIn }) {
   return (
     <div className="user-bg">
       <Container className="login-container">
-        <h3 className="h3-custom ">Login</h3>
+        <h3 className="h3-custom ">Admin Login</h3>
         <Form onSubmit={handleLogin} className="formLabel mt-4">
           <Form.Group controlId="formUsername">
             <Form.Label>Username</Form.Label>
@@ -69,3 +70,4 @@ function AdminLoginPage({ setAdminToken, setIsAdminLoggedIn }) {
 }
 
 export default AdminLoginPage;
+
