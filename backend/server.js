@@ -11,6 +11,7 @@ const profileRouter = require("./controllers/ProfileController");
 const inviteRouter = require("./controllers/InviteController");
 const appointmentRouter = require("./controllers/AppointmentController");
 const adminRouter = require("./controllers/AdminController");
+const locationRouter = require("./controllers/LocationController");
 
 //connect to mongodb
 mongoose.connect(process.env.MONGODB_URI);
@@ -34,6 +35,7 @@ app.use('/api/user', userRouter);
 app.use('/api/profile', profileRouter);
 app.use('/api/invitation', inviteRouter);
 app.use('/api/appointment', appointmentRouter);
+app.use('/api/location', locationRouter);
 app.use('/api/admin', adminRouter);
 
 app.listen(port, () => {

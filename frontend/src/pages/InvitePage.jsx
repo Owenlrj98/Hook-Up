@@ -1,7 +1,11 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
+// Import Bootstrap components
+import Form from 'react-bootstrap/Form';
+import Select from 'react-select';
 //services
-import { createInvite } from "../services/apiInvite";
+import { createInvite } from "../services/apiInvite"; // Adjust imports as necessary
+import { fetchLocations } from "../services/apiLocation";
 
 const InvitePage = ({ token }) => {
   const { recipientId } = useParams();
@@ -11,9 +15,23 @@ const InvitePage = ({ token }) => {
     location: "",
     activity: [],
   });
+  const [locations, setLocations] = useState([]); // State for locations
   const [successMessage, setSuccess] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
   const navigate = useNavigate();
+
+  useEffect(() => {
+    const getLocations = async () => {
+      try {
+        const locationData = await fetchLocations(token); // Fetch locations from the database
+        setLocations(locationData);
+      } catch (error) {
+        setErrorMessage("Failed to load locations.");
+      }
+    };
+
+    getLocations();
+  }, [token]);
 
   const handleChange = (event) => {
     const { name, value } = event.target;
@@ -22,23 +40,19 @@ const InvitePage = ({ token }) => {
       [name]: value,
     }));
   };
-  const handleActivityChange = (event) => {
-    const value = event.target.value;
-    setFormData((prev) => {
-      // Toggle activity selection
-      const updatedActivities = prev.activity.includes(value)
-        ? prev.activity.filter((activity) => activity !== value)
-        : [...prev.activity, value];
 
-      return { ...prev, activity: updatedActivities };
-    });
+  const handleActivityChange = (selectedOptions) => {
+    const selectedActivities = selectedOptions.map(option => option.value);
+    setFormData((prev) => ({
+      ...prev,
+      activity: selectedActivities,
+    }));
   };
 
   const handleSubmit = async (event) => {
     event.preventDefault();
     const inviteData = {
-      // recipient: recipientId,
-      date: new Date(formData.date), // Ensure date is in correct format
+      date: new Date(formData.date),
       time: formData.time,
       location: formData.location,
       activity: formData.activity,
@@ -48,7 +62,6 @@ const InvitePage = ({ token }) => {
       await createInvite(token, recipientId, inviteData);
       setSuccess("Invitation sent successfully!");
       setErrorMessage("");
-      // navigate("/user"); // Redirect to home or another page
     } catch (error) {
       setErrorMessage("Failed to send invitation.");
       setSuccess("");
@@ -58,54 +71,65 @@ const InvitePage = ({ token }) => {
   return (
     <div>
       <h2>Send an Invitation</h2>
-      <form onSubmit={handleSubmit}>
-        <div>
-          <label>Date:</label>
-          <input
+      <Form onSubmit={handleSubmit}>
+        <Form.Group controlId="formDate">
+          <Form.Label>Date:</Form.Label>
+          <Form.Control
             type="date"
             name="date"
             value={formData.date}
             onChange={handleChange}
             required
           />
-        </div>
-        <div>
-          <label>Time:</label>
-          <input
+        </Form.Group>
+
+        <Form.Group controlId="formTime">
+          <Form.Label>Time:</Form.Label>
+          <Form.Control
             type="time"
             name="time"
             value={formData.time}
             onChange={handleChange}
             required
           />
-        </div>
-        <div>
-          <label>Location:</label>
-          <input
-            type="text"
+        </Form.Group>
+
+        <Form.Group controlId="formLocation">
+          <Form.Label>Location:</Form.Label>
+          <Form.Control
+            as="select"
             name="location"
             value={formData.location}
             onChange={handleChange}
             required
-          />
-        </div>
-        <div>
-          <label>Activity:</label>
-          <select
-            name="activity"
-            value={formData.activity}
-            onChange={handleActivityChange}
-            multiple
-            required
           >
-            <option value="Top Rope">Top Rope</option>
-            <option value="Lead Climbing">Lead Climbing</option>
-            <option value="Bouldering">Bouldering</option>
-            <option value="Outdoor Climbing">Outdoor Climbing</option>
-          </select>
-        </div>
-        <button type="submit">Send Invitation</button>
-      </form>
+            <option value="">Select a location</option>
+            {locations.map((location) => (
+              <option key={location._id} value={location.name}>
+                {location.name}
+              </option>
+            ))}
+          </Form.Control>
+        </Form.Group>
+
+        <Form.Group controlId="formActivity" className="mt-3">
+          <Form.Label>Activity</Form.Label>
+          <Select
+            isMulti
+            options={[
+              { value: "Top Rope", label: "Top Rope" },
+              { value: "Lead Climbing", label: "Lead Climbing" },
+              { value: "Bouldering", label: "Bouldering" },
+              { value: "Outdoor Climbing", label: "Outdoor Climbing" },
+            ]}
+            onChange={handleActivityChange}
+            placeholder="Select Preferences"
+            value={formData.activity.map(activity => ({ value: activity, label: activity }))}
+          />
+        </Form.Group>
+
+        <button type="submit" className="btn btn-primary">Send Invitation</button>
+      </Form>
       {successMessage && <p>{successMessage}</p>}
       {errorMessage && <p style={{ color: "red" }}>{errorMessage}</p>}
     </div>

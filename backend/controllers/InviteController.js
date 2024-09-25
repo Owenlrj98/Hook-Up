@@ -1,8 +1,10 @@
 const express = require("express");
 const verifyToken = require("../middleware/verifyToken"); // Ensure you have token verification
 const router = express.Router();
+
 //models
 const Invite = require("../models/InviteSchema"); // Adjust the path as necessary
+const Location = require("../models/LocationSchema");
 
 // Middleware to get the current user
 const getUser = (req) => {

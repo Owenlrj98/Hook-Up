@@ -118,3 +118,4 @@ export const deleteInvitation = async (token, invitationId) => {
     throw error;
   }
 };
+
