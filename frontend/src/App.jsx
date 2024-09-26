@@ -92,6 +92,7 @@ function App() {
       ) : isUserLoggedIn ? (
         <UserNavBar
           setIsUserLoggedIn={setIsUserLoggedIn}
+          token={token}
           setToken={setToken}
           handleLogout={handleLogout}
         />

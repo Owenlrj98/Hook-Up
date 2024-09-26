@@ -71,6 +71,30 @@ export const invitationListFrom = async (token) => {
   }
 };
 
+//get count of pending invites - for badge
+export const fetchPendingCount = async (token) => {
+  const url = `${BACKEND_URL}/api/invitation/pending/count`;
+  try {
+    const response = await fetch(url, {
+      method: "GET",
+      headers: {
+        Authorization: `Bearer ${token}`,
+        "Content-Type": "application/json",
+      },
+    });
+
+    if (!response.ok) {
+      const errorData = await response.json();
+      throw new Error(errorData.error || "Failed to fetch");
+    }
+    const data = await response.json();
+    return data.count;
+  } catch (error) {
+    console.error("Error fetching pending invitations:", error);
+    throw error;
+  }
+};
+
 //change invitation status for sure! button
 export const updateInvitationStatus = async (token, invitationId, status) => {
   const url = `${BACKEND_URL}/api/invitation/pending/${invitationId}`;
