@@ -127,7 +127,7 @@ router.delete("/pending/:invitationId", verifyToken, async (req, res) => {
   }
 });
 
-
+// for badge
 //display all pending counts 
 router.get("/pending/count", verifyToken, async (req, res) => {
   const userId = getUser(req)._id; // Get the current user's ID
@@ -143,6 +143,24 @@ router.get("/pending/count", verifyToken, async (req, res) => {
     res.status(200).json({ count: pendingCount });
   } catch (error) {
     console.error("Error fetching pending invitations:", error);
+    res.status(500).json({ error: "Internal server error" });
+  }
+});
+//display all invitation counts
+router.get("/list/count", verifyToken, async (req, res) => {
+  const userId = getUser(req)._id; // Get the current user's ID
+
+  try {
+    // Count the number of pending invites for the user
+    const invitationCount = await Invite.countDocuments({
+      sender: userId,
+      status: "Pending",
+    });
+
+    // Respond with the count
+    res.status(200).json({ count: invitationCount });
+  } catch (error) {
+    console.error("Error fetching invitations:", error);
     res.status(500).json({ error: "Internal server error" });
   }
 });
