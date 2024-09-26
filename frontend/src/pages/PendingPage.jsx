@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { format, parseISO } from "date-fns";
 
 //style
-import { Container, Button } from "react-bootstrap";
+import { Container, Button, Card, Row, Col } from "react-bootstrap";
 
 //services
 import { invitationListFrom } from "../services/apiInvite";
@@ -60,47 +60,58 @@ function PendingPage({ token }) {
     return <div>You have no invitations yet</div>;
   }
 
-  return (
-    <div>
-      <Container className="text-center">
-        {invitations.length === 0 ? (
-          <p>No invitations</p>
-        ) : (
-          invitations.map((invitation) => (
-            <div key={invitation._id}>
-              <img
-                src={invitation.sender.profile.picture}
-                alt={`${invitation.sender.profile.name}'s profile`}
-                style={{
-                  width: "100px",
-                  height: "100px",
-                  borderRadius: "75px",
-                }}
-              />
-              <h2>Invitation from: {invitation.sender.profile.name}</h2>
-              <p>Date: {format(parseISO(invitation.date), "dd MMMM yyyy")}</p>
-              <p>Time: {invitation.time}</p>
-              <p>Location: {invitation.location}</p>
-              <p>Activity: {invitation.activity}</p>
-              <p>Status: {invitation.status}</p>
-              <Button
-                className="custom-button-primary"
-                onClick={() => handleAccept(invitation._id)}
-              >
-                Sure!
-              </Button>
-              <Button
-                className="custom-button-secondary"
-                onClick={() => handleDecline(invitation._id)}
-              >
-                Nope!
-              </Button>
-            </div>
-          ))
-        )}
-      </Container>
-    </div>
-  );
+return (
+  <div className="homeContent">
+    <Container>
+      {invitations.length === 0 ? (
+        <p>No invitations</p>
+      ) : (
+        <Row>
+          {invitations.map((invitation) => (
+            <Col xs={12} sm={6} md={4} key={invitation._id}>
+              <Card className="mb-4">
+                <Card.Body>
+                  <div className="d-flex align-items-center mb-2">
+                    <img
+                      src={invitation.sender.profile.picture}
+                      alt={`${invitation.sender.profile.name}'s profile`}
+                      style={{
+                        width: "100px",
+                        height: "100px",
+                        borderRadius: "75px",
+                        marginRight: "10px",
+                      }}
+                    />
+                    <div>
+                      <h5>Invitation from: {invitation.sender.profile.name}</h5>
+                      <p>Date: {format(parseISO(invitation.date), "dd MMMM yyyy")}</p>
+                      <p>Time: {invitation.time}</p>
+                      <p>Location: {invitation.location}</p>
+                      <p>Activity: {invitation.activity}</p>
+                      <p>Status: {invitation.status}</p>
+                      <Button
+                        className="custom-button-primary"
+                        onClick={() => handleAccept(invitation._id)}
+                      >
+                        Sure!
+                      </Button>
+                      <Button
+                        className="custom-button-secondary"
+                        onClick={() => handleDecline(invitation._id)}
+                      >
+                        Nope!
+                      </Button>
+                    </div>
+                  </div>
+                </Card.Body>
+              </Card>
+            </Col>
+          ))}
+        </Row>
+      )}
+    </Container>
+  </div>
+);
 }
 
 export default PendingPage;

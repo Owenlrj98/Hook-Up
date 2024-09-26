@@ -50,6 +50,26 @@ router.delete("/:appointmentId", verifyToken, async (req, res) => {
     res.status(500).json({ error: "Internal server error" });
   }
 });
+// appt count
+router.get("/count", verifyToken, async (req, res) => {
+  const userId = getUser(req)._id; // Get the current user's ID
 
+  try {
+    // Count the number of pending invites for the user
+    const invitationCount = await Invite.countDocuments({
+      status: "Accepted",
+      $or: [
+        { sender: userId },    
+        { recipient: userId }   
+      ]
+    });
+
+    // Respond with the count
+    res.status(200).json({ count: invitationCount });
+  } catch (error) {
+    console.error("Error fetching invitations:", error);
+    res.status(500).json({ error: "Internal server error" });
+  }
+});
 module.exports = router;
   

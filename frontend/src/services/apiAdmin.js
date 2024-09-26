@@ -68,3 +68,50 @@ export async function locationsList(adminToken) {
   }
 }
 
+//user count
+export const fetchUserCount = async (adminToken) => {
+  const url = `${BACKEND_URL}/api/admin/count`;
+  try {
+    const response = await fetch(url, {
+      method: "GET",
+      headers: {
+        Authorization: `Bearer ${adminToken}`,
+        "Content-Type": "application/json",
+      },
+    });
+
+    if (!response.ok) {
+      const errorData = await response.json();
+      throw new Error(errorData.error || "Failed to fetch");
+    }
+    const data = await response.json();
+    return data.count;
+  } catch (error) {
+    console.error("Error fetching pending invitations:", error);
+    throw error;
+  }
+};
+
+// remove gym
+export const removeGym = async (adminToken, gymId) => {
+  const url = `${BACKEND_URL}/api/admin/location/${gymId}`;
+  try {
+    const response = await fetch(url, {
+      method: "DELETE",
+      headers: {
+        Authorization: `Bearer ${adminToken}`,
+        "Content-Type": "application/json",
+      },
+    });
+    if (!response.ok) {
+      const errorData = await response.json();
+      throw new Error(errorData.error || "Failed to remove gym");
+    }
+
+    return await response.json();
+  } catch (error) {
+    console.error("Error in remove gym:", error);
+    throw error;
+  }
+};
+

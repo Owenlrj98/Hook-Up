@@ -35,7 +35,7 @@ function AdminLoginPage({ setAdminToken, setIsAdminLoggedIn }) {
     <div className="user-bg">
       <Container className="login-container">
         <h3 className="h3-custom ">Admin Login</h3>
-        <Form onSubmit={handleLogin} className="formLabel mt-4">
+        <Form onSubmit={handleLogin} className="mt-3">
           <Form.Group controlId="formUsername">
             <Form.Label>Username</Form.Label>
             <Form.Control

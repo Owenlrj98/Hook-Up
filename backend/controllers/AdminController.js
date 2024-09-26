@@ -30,6 +30,7 @@ const upload = multer({
 //models
 const Admin = require("../models/AdminSchema");
 const Location = require('../models/LocationSchema');
+const User = require("../models/UserSchema")
 
 const SALT_LENGTH = 12;
 
@@ -117,6 +118,35 @@ router.get("/location", verifyAdminToken, async (req, res) => {
     }
 });
 
+//total users count
+router.get("/count", verifyAdminToken, async (req, res) => {  
+    try {
+      // Count the number of pending invites for the user
+      const userCount = await User.countDocuments();
+      // Respond with the count
+      res.status(200).json({ count: userCount });
+    } catch (error) {
+      console.error("Error fetching pending invitations:", error);
+      res.status(500).json({ error: "Internal server error" });
+    }
+  });
+
+//delete location
+router.delete("/location/:locationId", verifyAdminToken, async (req, res) => {
+    const gymId = req.params.locationId;
+    try {
+      const removeGym = await Location.findByIdAndDelete(gymId);
+      if (!removeGym) {
+        return res.status(404).json({ error: "Gym not found" });
+      }
+  
+      res.status(200).json({ message: "Gym canceled" });
+    } catch (error) {
+      console.error("Error deleting gym:", error);
+      res.status(500).json({ error: "Internal server error" });
+    }
+  });
+  
 
 module.exports = router;
 

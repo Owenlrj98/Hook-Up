@@ -1,6 +1,8 @@
 import { useEffect, useState } from "react";
+//style
 import { Container, Form, Button } from "react-bootstrap";
-import Select from "react-select"; // Import Select from react-select
+import Select from "react-select"; 
+//services
 import { createLocation } from "../services/apiAdmin";
 
 const AdminNewLocationPage = ({ adminToken }) => {
@@ -41,8 +43,11 @@ const AdminNewLocationPage = ({ adminToken }) => {
     formDataToSend.append("name", formData.name);
     formDataToSend.append("address", formData.address);
     formDataToSend.append("postal", formData.postal);
-    formDataToSend.append("facilities", formData.facilities); // Send as comma-separated or array
-
+    // formDataToSend.append("facilities", formData.facilities); // Send as comma-separated or array
+    formData.facilities.forEach(facility => {
+      formDataToSend.append("facilities[]", facility); // means treat as array
+    });
+  
     if (locationPicture) {
       formDataToSend.append("locationPicture", locationPicture);
     }
@@ -59,15 +64,15 @@ const AdminNewLocationPage = ({ adminToken }) => {
   };
 
   return (
-    <div className="contractor-bg pages-pad">
-      <Container className="pages-custom-container">
+    <div className="homeContent">
+      <Container className="text-center">
         <h4 className="h3-custom">Location</h4>
       </Container>
       <Container>
         <div className="pages-box-shadow p-3 mt-3">
           <h5 className="h3-custom">Add New Location</h5>
-          <Form onSubmit={handleSubmit} className="formLabel mt-2 p-3">
-            <Form.Group controlId="formName">
+          <Form onSubmit={handleSubmit} className="mt-3">
+            <Form.Group controlId="formName" className="mt-3">
               <Form.Label>Name</Form.Label>
               <Form.Control
                 type="text"
@@ -78,7 +83,7 @@ const AdminNewLocationPage = ({ adminToken }) => {
                 required
               />
             </Form.Group>
-            <Form.Group controlId="formAddress">
+            <Form.Group controlId="formAddress" className="mt-3">
               <Form.Label>Address</Form.Label>
               <Form.Control
                 type="text"
@@ -111,7 +116,7 @@ const AdminNewLocationPage = ({ adminToken }) => {
                   { value: "System Board", label: "System Board" },
                 ]}
                 onChange={handleFacilitiesChange}
-                placeholder="Select Preferences"
+                placeholder="Select Facilities"
               value={formData.facilities.map(facility => ({ value: facility, label: facility }))}
               />
             </Form.Group>

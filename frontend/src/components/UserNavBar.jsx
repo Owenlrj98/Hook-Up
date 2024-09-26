@@ -6,11 +6,14 @@ import logo from "/images/hookuplogoz.png";
 //services
 import { fetchPendingCount } from "../services/apiInvite";
 import { fetchInvitationCount } from "../services/apiInvite";
+import { fetchAppointmentCount } from "../services/apiAppointment";
 
 function UserNavBar({ handleLogout, token }) {
   //create badge
   const [pendingCount, setPendingCount] = useState(0);
   const [inviteCount, setInviteCount] = useState(0);
+  const [apptCount, setApptCount] = useState(0);
+
   useEffect(() => {
     const fetchPendingInvitesCount = async () => {
       try {
@@ -30,8 +33,17 @@ function UserNavBar({ handleLogout, token }) {
       }
     };
     fetchInvitesCount();
-  }, [token]);
+    const fetchApptCount = async () => {
+      try {
+        const response = await fetchAppointmentCount(token);
+        setApptCount(response);
+      } catch (error) {
+        console.error("Failed to fetch appointments:", error);
+      }
+    }
+    fetchApptCount();
 
+  }, [token]);
   return (
     <>
       <Navbar bg="dark" data-bs-theme="dark">
@@ -58,7 +70,12 @@ function UserNavBar({ handleLogout, token }) {
                 </Badge>
               )}
             </Nav.Link>
-            <Nav.Link href="/user/appointments">Appointments</Nav.Link>
+            <Nav.Link href="/user/appointments">Appointments
+            {apptCount > 0 && (
+                <Badge bg="success" text="light" className="ms-1">
+                  {apptCount}
+                </Badge>
+              )}</Nav.Link>
             <Nav.Link href="/user/gyms">Gyms</Nav.Link>
             <Nav.Link href="/" onClick={handleLogout}>
               Log Out

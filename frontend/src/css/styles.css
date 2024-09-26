@@ -24,6 +24,7 @@ body {
   font-weight: 400;
   font-style: normal;
   font-optical-sizing: auto;
+  min-height: 100vh;
   /* background-color: #f8f9fa;
   background-color: #343a40;
   background-color: #edf2fa; */
@@ -52,6 +53,7 @@ body {
   /* color: #ebe9e1;*/
   color: #ea615a;
   font-weight: 700;
+  font-size: 50px;
 }
 .margin-top {
   font-size: 100px;
@@ -61,9 +63,18 @@ body {
 }
 .mt-3 {
   color: #ea615a;
+  font-size: 30px;
 }
 .mt-4 {
   color: #ea615a;
+}
+.mb-4 {
+  background-color: pink;
+  color: black;
+}
+.mb-5 {
+  background-color: black;
+  color: pink;
 }
 /* Button */
 .custom-button-primary {
@@ -232,7 +243,7 @@ body {
   margin: 0 auto;
 }
 .pages-box-shadow {
-  background-color: rgb(31, 31, 31, 0.8);
+  background-color: black;
   box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
   border-radius: 5px;
   padding: 20px;
@@ -257,7 +268,14 @@ body {
 .gantt-chart-pad {
   padding-top: 3rem;
 }
-
+.card {
+  height: 90%;
+}
+.card-body {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
 /* .flex-container {
   display: flex;
   justify-content: space-between;

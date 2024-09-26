@@ -46,3 +46,28 @@ export const acceptedInvitations = async (token) => {
       throw error;
     }
   };
+
+  //get all appointmentCounts
+  export const fetchAppointmentCount = async (token) => {
+    const url = `${BACKEND_URL}/api/appointment/count`;
+    try {
+      const response = await fetch(url, {
+        method: "GET",
+        headers: {
+          Authorization: `Bearer ${token}`,
+          "Content-Type": "application/json",
+        },
+      });
+  
+      if (!response.ok) {
+        const errorData = await response.json();
+        throw new Error(errorData.error || "Failed to fetch");
+      }
+      const data = await response.json();
+      return data.count;
+    } catch (error) {
+      console.error("Error fetching invitations count:", error);
+      throw error;
+    }
+  }
+  
