@@ -1,4 +1,21 @@
 @import url("https://fonts.googleapis.com/css2?family=Sofadi+One&display=swap");
+/* image */
+.image {
+  width: 200px;
+  height: 100x;
+  padding: 10px;
+}
+.startpage {
+  background-image: url("frontend/public/images/climbingPic.jpg"); /* Update with your image path */
+  background-size: cover; /* Cover the entire container */
+  background-position: center; /* Center the image */
+  background-repeat: no-repeat; /* Prevent repeating the image */
+  min-height: 100vh; /* Ensure the background covers the full viewport height */
+  display: flex; /* Use flexbox for centering */
+  align-items: center; /* Vertically center */
+  justify-content: center; /* Horizontally center */
+  color: white; /* Optional: change text color for contrast */
+}
 
 body {
   margin: 0;
@@ -33,7 +50,7 @@ body {
 }
 .h3-custom {
   /* color: #ebe9e1;*/
-  color:  #ea615a;
+  color: #ea615a;
   font-weight: 700;
 }
 .margin-top {
@@ -43,10 +60,10 @@ body {
   color: #ea615a;
 }
 .mt-3 {
-    color: #ea615a;
+  color: #ea615a;
 }
 .mt-4 {
-    color: #ea615a;
+  color: #ea615a;
 }
 /* Button */
 .custom-button-primary {
@@ -128,7 +145,7 @@ body {
   color: #ebe9e1 !important;
 }
 .nav-link {
-    color: pink;
+  color: pink;
 }
 
 .bg-footer {

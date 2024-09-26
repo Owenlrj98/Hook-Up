@@ -35,5 +35,21 @@ router.get("/", verifyToken, async (req, res) => {
     }
   });
 
+// cancel appt
+router.delete("/:appointmentId", verifyToken, async (req, res) => {
+  const appointmentId = req.params.appointmentId;
+  try {
+    const cancelAppointment = await Invite.findByIdAndDelete(appointmentId);
+    if (!cancelAppointment) {
+      return res.status(404).json({ error: "Appointment not found" });
+    }
+
+    res.status(200).json({ message: "Appointment canceled" });
+  } catch (error) {
+    console.error("Error deleting appointment:", error);
+    res.status(500).json({ error: "Internal server error" });
+  }
+});
+
 module.exports = router;
   

@@ -56,6 +56,7 @@ return (
             <h2>Name: {user.profile.name}</h2>
             <p>Experience: {user.profile.experience}</p>
             <p>Likes: {user.profile.preferences}</p>
+            <p>{user.profile.description}</p>
             <Button className="custom-button-primary" onClick={handleFetchRandomUser}>Find Another</Button>
             <Button className="custom-button-secondary" onClick={handleHook}>Hook Up</Button>
           </div>

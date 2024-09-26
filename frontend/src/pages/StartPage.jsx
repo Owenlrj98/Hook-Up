@@ -8,7 +8,7 @@ import Navibar from "../components/NaviBar";
 function StartPage() {
   return (
     <>
-      <div className="homepage">
+      <div className="startpage">
         <Container className="caption-container text-center">
           <h3 className="margin-top">Welcome to</h3>
           <div className="text-center">

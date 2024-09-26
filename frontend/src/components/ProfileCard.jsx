@@ -37,12 +37,13 @@ export default function ProfileCard({ token }) {
           <img
             src={profile.picture}
             alt={`${profile.name}'s profile`}
-            style={{ width: "150px", height: "150px", borderRadius: "75px" }}
+            style={{ width: "200px", height: "200px", borderRadius: "100px" }}
           />
         )}
         <h2>Name: {profile.name}</h2>
         <p>Experience: {profile.experience}</p>
         <p>Likes: {profile.preferences.join(", ")}</p>
+        <p>{profile.description}</p>
       </div>
       {successMessage && <p className="success mt-3">{successMessage}</p>}
     </div>

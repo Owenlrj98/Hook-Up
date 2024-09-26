@@ -23,3 +23,26 @@ export const acceptedInvitations = async (token) => {
       throw error;
     }
   };
+
+  //cancel appt
+  export const cancelAppointment = async (token, appointmentId) => {
+    const url = `${BACKEND_URL}/api/appointment/${appointmentId}`;
+    try {
+      const response = await fetch(url, {
+        method: "DELETE",
+        headers: {
+          Authorization: `Bearer ${token}`,
+          "Content-Type": "application/json",
+        },
+      });
+      if (!response.ok) {
+        const errorData = await response.json();
+        throw new Error(errorData.error || "Failed to cancel appointment");
+      }
+  
+      return await response.json();
+    } catch (error) {
+      console.error("Error in cancel appointment:", error);
+      throw error;
+    }
+  };

@@ -55,26 +55,31 @@ router.post("/login", async (req, res) => {
     }
 });
 
-// get random user in database not equals to the current id
 router.get('/', verifyToken, async (req, res) => {
     try {
-        // find all users accept your own
-      const users = await User.find({ _id: { $ne: req.user._id } });
-      // if no users
+      // Find all users except your own who have a profile created
+      const users = await User.find({
+        _id: { $ne: req.user._id },
+        profile: { $exists: true, $ne: null } // Adjust this condition based on your schema
+      });
+  
+      // If no users
       if (users.length === 0) {
-        return res.status(404).json({ message: 'No other users found' });
+        return res.status(404).json({ message: 'No other users found with profiles' });
       }
-
+  
       // Select random index in the array of users
-    const randomIndex = Math.floor(Math.random() * users.length);
-    const randomUser = users[randomIndex];
+      const randomIndex = Math.floor(Math.random() * users.length);
+      const randomUser = users[randomIndex];
+  
+      // Respond with the random user profile
+      res.json(randomUser);
+    } catch (err) {
+      res.status(500).json({ error: err.message });
+    }
+  });
+  
 
-    // Respond with the random user profile
-    res.json(randomUser);
-  } catch (err) {
-    res.status(500).json({ error: err.message });
-  }
-});
 
 // get user profile by id
 router.get("/:userId", verifyToken, async (req, res) => {
@@ -96,38 +101,6 @@ router.get("/:userId", verifyToken, async (req, res) => {
             }
         }
     });
-
-// update profile - name, experience and preferences only
-// router.put('/:id', verifyToken, async (req, res) => {
-//     // Extract user data from request body
-//     const { username, experience, preferences } = req.body;
-
-//     // Validate user ID
-//     if (req.params.id !== req.user._id.toString()) {
-//         return res.status(403).json({ error: 'Unauthorized to update this profile' });
-//     }
-
-//     try {
-//         // Find and update the user
-//         const updatedUser = await User.findByIdAndUpdate(
-//             req.params.id, 
-//             { username, experience, preferences },
-//             { new: true, runValidators: true }
-//         );
-
-//         // Check if the user was found and updated
-//         if (!updatedUser) {
-//             return res.status(404).json({ error: 'User not found' });
-//         }
-
-//         // Send updated user as response
-//         res.json(updatedUser);
-//     } catch (err) {
-//         // Log error for debugging purposes
-//         console.error('Update profile error:', err);
-//         res.status(500).json({ error: err.message });
-//     }
-// });
 
 module.exports = router;
 

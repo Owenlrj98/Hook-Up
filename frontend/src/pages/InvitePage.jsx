@@ -1,8 +1,9 @@
 import { useState, useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 // Import Bootstrap components
-import Form from 'react-bootstrap/Form';
-import Select from 'react-select';
+import Form from "react-bootstrap/Form";
+import Select from "react-select";
+import { Container, Button } from "react-bootstrap";
 //services
 import { createInvite } from "../services/apiInvite"; // Adjust imports as necessary
 import { fetchLocations } from "../services/apiLocation";
@@ -42,7 +43,7 @@ const InvitePage = ({ token }) => {
   };
 
   const handleActivityChange = (selectedOptions) => {
-    const selectedActivities = selectedOptions.map(option => option.value);
+    const selectedActivities = selectedOptions.map((option) => option.value);
     setFormData((prev) => ({
       ...prev,
       activity: selectedActivities,
@@ -68,70 +69,80 @@ const InvitePage = ({ token }) => {
     }
   };
 
+  //set today dat
+  const today = new Date().toISOString().split('T')[0];
+
   return (
     <div>
-      <h2>Send an Invitation</h2>
-      <Form onSubmit={handleSubmit}>
-        <Form.Group controlId="formDate">
-          <Form.Label>Date:</Form.Label>
-          <Form.Control
-            type="date"
-            name="date"
-            value={formData.date}
-            onChange={handleChange}
-            required
-          />
-        </Form.Group>
+      <Container className="login-container">
+        <h2>Send an Invitation</h2>
+        <Form onSubmit={handleSubmit} className="mt-4">
+          <Form.Group controlId="formDate">
+            <Form.Label>Date:</Form.Label>
+            <Form.Control
+              type="date"
+              name="date"
+              value={formData.date}
+              onChange={handleChange}
+              required
+              min={today}
+            />
+          </Form.Group>
 
-        <Form.Group controlId="formTime">
-          <Form.Label>Time:</Form.Label>
-          <Form.Control
-            type="time"
-            name="time"
-            value={formData.time}
-            onChange={handleChange}
-            required
-          />
-        </Form.Group>
+          <Form.Group controlId="formTime">
+            <Form.Label>Time:</Form.Label>
+            <Form.Control
+              type="time"
+              name="time"
+              value={formData.time}
+              onChange={handleChange}
+              required
+            />
+          </Form.Group>
 
-        <Form.Group controlId="formLocation">
-          <Form.Label>Location:</Form.Label>
-          <Form.Control
-            as="select"
-            name="location"
-            value={formData.location}
-            onChange={handleChange}
-            required
-          >
-            <option value="">Select a location</option>
-            {locations.map((location) => (
-              <option key={location._id} value={location.name}>
-                {location.name}
-              </option>
-            ))}
-          </Form.Control>
-        </Form.Group>
+          <Form.Group controlId="formLocation">
+            <Form.Label>Location:</Form.Label>
+            <Form.Control
+              as="select"
+              name="location"
+              value={formData.location}
+              onChange={handleChange}
+              required
+            >
+              <option value="">Select a location</option>
+              {locations.map((location) => (
+                <option key={location._id} value={location.name}>
+                  {location.name}
+                </option>
+              ))}
+            </Form.Control>
+          </Form.Group>
 
-        <Form.Group controlId="formActivity" className="mt-3">
-          <Form.Label>Activity</Form.Label>
-          <Select
-            isMulti
-            options={[
-              { value: "Top Rope", label: "Top Rope" },
-              { value: "Lead Climbing", label: "Lead Climbing" },
-              { value: "Bouldering", label: "Bouldering" },
-              { value: "Outdoor Climbing", label: "Outdoor Climbing" },
-            ]}
-            onChange={handleActivityChange}
-            placeholder="Select Preferences"
-            value={formData.activity.map(activity => ({ value: activity, label: activity }))}
-          />
-        </Form.Group>
+          <Form.Group controlId="formActivity" className="mt-3">
+            <Form.Label>Activity</Form.Label>
+            <Select
+              isMulti
+              options={[
+                { value: "Top Rope", label: "Top Rope" },
+                { value: "Lead Climbing", label: "Lead Climbing" },
+                { value: "Bouldering", label: "Bouldering" },
+              ]}
+              onChange={handleActivityChange}
+              placeholder="Select Preferences"
+              value={formData.activity.map((activity) => ({
+                value: activity,
+                label: activity,
+              }))}
+            />
+          </Form.Group>
 
-        <button type="submit" className="btn btn-primary">Send Invitation</button>
-      </Form>
-      {successMessage && <p>{successMessage}</p>}
-      {errorMessage && <p style={{ color: "red" }}>{errorMessage}</p>}
+          <Button type="submit" className="custom-button-secondary me-2">
+            Send Invitation
+          </Button>
+        </Form>
+        {successMessage && <p>{successMessage}</p>}
+        {errorMessage && <p style={{ color: "red" }}>{errorMessage}</p>}
+      </Container>
     </div>
   );
 };
