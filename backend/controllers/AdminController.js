@@ -84,7 +84,7 @@ router.post("/login", async (req, res) => {
 router.post("/location", verifyAdminToken, upload.single('locationPicture'), async (req, res) => {
     const { name, address, postal, facilities } = req.body;
     if (!name || !address || !postal) {
-        return res.status(400).json({ error: "All fields are required" });
+        return res.status(400).json({ error: "Al    l fields are required" });
     }
     try {
         const picture = req.file ? req.file.location : null; // Use req.file.location for S3 fk this
