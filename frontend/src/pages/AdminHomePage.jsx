@@ -1,28 +1,3 @@
-// import { useState, useEffect } from "react";
-// //services
-// import { fetchUserCount } from "../services/apiAdmin";
-
-// function AdminHomePage(adminToken) {
-//   const [userCount, setUserCount] = useState();
-
-//   useEffect(() => {
-//     fetchUserCount();
-//     const totalUserCount = async () => {
-//       try {
-//         const response = await fetchUserCount(adminToken);
-//         setUserCount(response);
-//       } catch (error) {
-//         console.error("Failed to fetch user:", error);
-//       }
-//     };
-//     totalUserCount();
-//   }, [adminToken]);
-
-//   return <div>"Total Number of Users:" {userCount}</div>;
-// }
-
-// export default AdminHomePage;
-
 import { useState, useEffect } from "react";
 // services
 import { fetchUserCount } from "../services/apiAdmin";
