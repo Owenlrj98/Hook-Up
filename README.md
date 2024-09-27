@@ -20,5 +20,9 @@ Admin:
 4. Locations: List of gyms
 5. New location: Create new location which will be rendered in locations page.
 
+Initial WireFrame (Changed along the way)
+<img width="953" alt="image" src="https://github.com/user-attachments/assets/ea620bb3-3fd5-4f99-aced-c2f7da3201a5">
 
+<img width="953" alt="image" src="https://github.com/user-attachments/assets/e7af1dba-ecbf-4a62-b1e4-4ddea6bf617b">
 
+<img width="868" alt="image" src="https://github.com/user-attachments/assets/9d1db6e2-9b3b-4b7d-930d-61c3c7eb01bb">
