@@ -28,6 +28,8 @@ app.use(express.json());
 app.use(morgan("dev"));
 app.use(cors());
 app.use(bodyParser.json());
+// new
+app.use(express.static("../frontend/dist"));
 
 
 //Routes
