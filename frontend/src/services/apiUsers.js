@@ -3,7 +3,9 @@ import { extractPayload } from "../../utils/jwUtils";
 
 // user signup
 export async function userSignUp(data) {
-    const url = `${BACKEND_URL}/api/user/signup`;
+    // const url = `${BACKEND_URL}/api/user/signup`;
+    const url = `/api/user/signup`;
+
     try {
         const response = await fetch(url, {
             method: "POST",
