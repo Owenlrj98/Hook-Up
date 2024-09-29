@@ -1,3 +1,45 @@
+Deployment issue, to be fixed 
+Here's how the website looks on localhost for now:
+Website Start Page
+<img width="953" alt="image" src="https://github.com/user-attachments/assets/41d8e1a9-72a9-4861-b674-cd406d93a69f">
+Website User Log in / Sign Up
+<img width="953" alt="image" src="https://github.com/user-attachments/assets/458b3968-97b3-405b-9584-706d90b3533c">
+<img width="953" alt="image" src="https://github.com/user-attachments/assets/c809ff87-da62-42d4-9899-240fa8deb6d5">
+Website Home Page
+<img width="953" alt="image" src="https://github.com/user-attachments/assets/3e66fba9-8a5a-42f9-a2c1-f25938f97382">
+Website Profile Page
+<img width="953" alt="image" src="https://github.com/user-attachments/assets/e6109867-ee76-469d-92e4-5a4cdbeb7e99">
+<img width="953" alt="image" src="https://github.com/user-attachments/assets/302e7f77-8386-4c3b-903b-1b8fcc3fbba1">
+Website Invitations Page
+<img width="953" alt="image" src="https://github.com/user-attachments/assets/8efed1e5-a233-4299-94d8-241356bd7856">
+Website Pending Invitations Page
+<img width="953" alt="image" src="https://github.com/user-attachments/assets/47fa4ead-11e0-4334-9f3c-9c73e3599170">
+Website Accepted Appointments Page
+<img width="953" alt="image" src="https://github.com/user-attachments/assets/752438b8-c8bd-4ebf-bb59-f0f860b92af1">
+Website List of Gyms Page
+<img width="953" alt="image" src="https://github.com/user-attachments/assets/812e5601-2133-4092-b09f-6504b6ed9ab1">
+
+Admin Pages
+Home Page
+<img width="953" alt="image" src="https://github.com/user-attachments/assets/30457746-430b-4467-8954-1e6f86f3d146">
+List of locations page
+<img width="953" alt="image" src="https://github.com/user-attachments/assets/12611ff2-f3c4-4cb4-bd60-ca4e174d699c">
+Add Location Page
+<img width="953" alt="image" src="https://github.com/user-attachments/assets/49544707-e160-4749-a5d2-38e7a3fa0617">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 This app aims to connect people with interest in climbing together. User will be able to send invitations to other users in the app.  
 
 User: 
