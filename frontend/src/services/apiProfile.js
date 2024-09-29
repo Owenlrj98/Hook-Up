@@ -3,8 +3,8 @@ import { extractPayload } from "../../utils/jwUtils";
 
 //get random profile
 export async function fetchRandomUser(token) {
-  // const url = `${BACKEND_URL}/api/user`;
-  const url = `/api/user`;
+  const url = `${BACKEND_URL}/api/user`;
+  // const url = `/api/user`;
 
 
   try {
@@ -33,8 +33,8 @@ export async function fetchRandomUser(token) {
 //get own profile
 export async function fetchOwnProfile(token) {
   const userId = extractPayload(token)._id;
-  // const url = `${BACKEND_URL}/api/user/${userId}`;
-  const url = `/api/user/${userId}`;
+  const url = `${BACKEND_URL}/api/user/${userId}`;
+  // const url = `/api/user/${userId}`;
 
   try {
     const response = await fetch(url, {
@@ -59,8 +59,8 @@ export async function fetchOwnProfile(token) {
 //create and edit profile
 export const createEditProfile = async (token, formData) => {
   const userId = extractPayload(token)._id;
-  // const url = `${BACKEND_URL}/api/profile/${userId}/details`;
-  const url = `/api/profile/${userId}/details`;
+  const url = `${BACKEND_URL}/api/profile/${userId}/details`;
+  // const url = `/api/profile/${userId}/details`;
 
   try {
     const res = await fetch(url, {
