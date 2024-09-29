@@ -26,3 +26,17 @@ Initial WireFrame (Changed along the way)
 <img width="953" alt="image" src="https://github.com/user-attachments/assets/e7af1dba-ecbf-4a62-b1e4-4ddea6bf617b">
 
 <img width="868" alt="image" src="https://github.com/user-attachments/assets/9d1db6e2-9b3b-4b7d-930d-61c3c7eb01bb">
+
+Technology Used:
+MERN Stack
+MongoDB
+Express
+React
+Node.js
+
+Additional Libraries:
+React-bootstrap
+React Select
+Date Fns
+AWS S3
+Multer
